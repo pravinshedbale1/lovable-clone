@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: lovable-backend
+  datasource:
+    url: jdbc:postgresql://localhost:5432/build4me
+    hikari:
+      username: pravin
+      password: pravin

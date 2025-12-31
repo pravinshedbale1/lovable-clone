@@ -1,0 +1,30 @@
+package com.javacommune.lovablebackend.entity;
+
+import com.javacommune.lovablebackend.enums.PreviewStatus;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
+
+import java.time.Instant;
+
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Getter
+@Setter
+@Entity
+public class Preview {
+    @Id
+    Long id;
+    Project project;
+    String namespace;
+    String podName;
+    String previewUrl;
+    PreviewStatus status;
+
+    Instant startedAt;
+    Instant terminatedAt;
+    Instant createdAt;
+
+}

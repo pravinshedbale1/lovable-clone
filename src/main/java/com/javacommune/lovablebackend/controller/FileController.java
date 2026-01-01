@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api/projects/{projectId}/files")
+@RequiredArgsConstructor
 public class FileController {
     private final FileService fileService;
 

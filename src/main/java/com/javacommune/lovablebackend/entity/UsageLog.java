@@ -12,7 +12,7 @@ import java.time.Instant;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
-@Entity
+
 public class UsageLog {
     @Id
     Long id;

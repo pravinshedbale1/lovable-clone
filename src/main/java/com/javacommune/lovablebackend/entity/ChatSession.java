@@ -11,7 +11,7 @@ import java.time.Instant;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
-@Entity
+//@Entity
 public class ChatSession {
     Project project;
     User user;

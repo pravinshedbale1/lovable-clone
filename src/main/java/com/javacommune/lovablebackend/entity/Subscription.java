@@ -13,7 +13,7 @@ import java.time.Instant;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
-@Entity
+
 public class Subscription {
     @Id
     Long id;

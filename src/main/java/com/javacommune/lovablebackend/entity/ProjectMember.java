@@ -2,6 +2,7 @@ package com.javacommune.lovablebackend.entity;
 
 import com.javacommune.lovablebackend.enums.ProjectRole;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.time.Instant;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Getter
 @Setter
-@Entity
+
 public class ProjectMember {
     ProjectMemberId id;
     Project project;

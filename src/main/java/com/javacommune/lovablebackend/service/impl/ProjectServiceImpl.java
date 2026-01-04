@@ -15,9 +15,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,12 +31,12 @@ public class ProjectServiceImpl implements ProjectService {
     public List<ProjectSummaryResponse> getAllProjects(Long userId) {
         var projects = projectRepository.findAllAccessibleByUser(userId);
         return projectMapper.toListOfProjectSummaryResponse(projects);
-//        return projects.stream().map(projectMapper::toProjectSummaryResponse).collect(Collectors.toList());
     }
 
     @Override
     public DetailedProjectResponse getProject(Long projectId, Long userId) {
-        return null;
+        var project = projectRepository.findAccessibleProjectById(projectId, userId).orElseThrow();
+        return projectMapper.toDetailedProjectResponse(project);
     }
 
     @Override
@@ -45,16 +44,25 @@ public class ProjectServiceImpl implements ProjectService {
         User user = userRepository.findById(userId).orElseThrow();
         Project project = Project.builder().name(request.name()).owner(user).isPublic(false).build();
         project = projectRepository.save(project);
-        return projectMapper.toProjectResponse(project);
+        return projectMapper.toDetailedProjectResponse(project);
     }
 
     @Override
     public DetailedProjectResponse updateProject(Long id, ProjectRequest request, Long userId) {
-        return null;
+        Project project = getAccessibleProjectById(id, userId);
+        project.setName(request.name());
+        project = projectRepository.saveAndFlush(project);
+        return projectMapper.toDetailedProjectResponse(project);
     }
 
     @Override
     public void softDelete(Long id, Long userId) {
+        Project project = getAccessibleProjectById(id, userId);
+        project.setDeletedAt(Instant.now());
+        project = projectRepository.saveAndFlush(project);
+    }
 
+    public Project getAccessibleProjectById(Long projectId, Long userId) {
+        return projectRepository.findAccessibleProjectById(projectId, userId).orElseThrow();
     }
 }
